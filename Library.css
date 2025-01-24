@@ -1,0 +1,237 @@
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Space+Grotesk:wght@300..700&display=swap');
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+* {
+    margin: 0px;
+    box-sizing: border-box;
+    padding: 0px;
+}
+.vm-custom-dropdown {
+    --vm-dropdown-width: 212px;
+    --vm-dropdown-height: 38px;
+    width: var(--vm-dropdown-width);
+    min-height: var(--vm-dropdown-height);
+}
+.vm-custom-select {
+    --vm-select-color: #c5c5c5;
+    --vm-select-width: 212px;
+    --vm-select-height: 38px;
+    width: var(--vm-select-width);
+    min-height: var(--vm-select-height);
+}
+.vm-custom-input-number {
+    --vm-input-number-width: 212px;
+    --vm-input-number-height: 38px;
+    width: var(--vm-input-number-width);
+    min-height: var(--vm-input-number-height);
+}
+.vm-custom-input-text {
+    --vm-input-text-width: 212px;
+    --vm-input-text-height: 38px;
+    width: var(--vm-input-text-width);
+    min-height: var(--vm-input-text-height);
+}
+
+.vm-custom-dropdown, .vm-custom-select, .vm-custom-input-number, .vm-custom-input-text {
+    position: relative;
+    font-family: "Poppins", serif;
+}
+/* INPUT TEXT ----------------------------*/
+
+.vm-custom-input-text > input {
+    width: 100%;
+    height: var(--vm-input-text-height);
+    border-radius: 9px;
+    border: 1px solid #c5c5c5;
+    font-family: "Poppins", serif;
+    padding: 0px 10px;
+    outline: none;
+}
+
+.vm-custom-input-text > i, .vm-custom-input-text > span {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    color: #7878f3af
+}
+
+/* DROPDOWN ----------------------------- */
+
+.vm-custom-dropdown > .dropdown-input {
+    width: 100%;
+    height: var(--vm-dropdown-height);
+    border-radius: 9px;
+    border: 1px solid #c5c5c5;
+    font-family: "Poppins", serif;
+    padding: 0px 10px;
+    outline: none;
+}
+.vm-custom-dropdown > .dropdown-input::placeholder {
+    font-family: "Poppins", serif;
+    color: rgb(48, 48, 48);
+    font-size: 12px;
+}
+.vm-custom-dropdown > .dropdown-input:focus {
+    border: 2px solid #acacff;
+    box-shadow: 1px 1px 3px #babaffdd;
+}
+.vm-custom-dropdown > .dropdown-list {
+    left: 0;
+    right: 0;
+    top: 106%;
+    position: absolute;
+    display: none;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #c7c7c7;
+    z-index: 2;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+}
+.vm-custom-dropdown > .dropdown-list > .dropdown-item {
+    border: none;
+    font-size: 14px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 11px;
+    height: 31px;
+    align-items: center;
+    background-color: white;
+}
+.vm-custom-dropdown > .dropdown-list > .dropdown-item:last-child {
+    border-bottom: none;
+}
+.vm-custom-dropdown > .dropdown-list > .dropdown-item:hover {
+    background-color: rgb(243, 243, 243);
+}
+
+/* SELECT ------------------------------ */
+.vm-custom-select:disabled {
+    background-color: white;
+}
+.vm-custom-select > button {
+    font-family: "Poppins", serif;
+    width: 100%;
+    height: var(--vm-select-height);
+    border-radius: 9px;
+    border: 1px solid var(--vm-select-color);
+    font-size: 12.5px;
+    padding: 0px 10px;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    outline: none;
+}
+.vm-custom-select > button > span:first-of-type:empty::before {
+    content: attr(data-placeholder);
+    color: black;
+}
+.vm-custom-select > .select-list {
+    left: 0;
+    right: 0;
+    top: 106%;
+    position: absolute;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #c7c7c7;
+    z-index: 2;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+}
+.vm-custom-select > .select-list > .select-item {
+    border: none;
+    font-size: 14px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 11px;
+    height: 31px;
+    align-items: center;
+    background-color: white;
+}
+.vm-custom-select > .select-list > .select-item:last-child {
+    border-bottom: none;
+}
+.vm-custom-select > .select-list > .select-item:hover {
+    background-color: rgb(243, 243, 243);
+}
+.vm-custom-select > .select-list.active, .vm-custom-dropdown > .dropdown-list.active {
+    display: inline;
+}
+.vm-custom-select .arrow-select {
+    transition: transform 0.2s ease;
+}
+.vm-custom-select .arrow-select.rotate {
+    transform: rotate(180deg);
+}
+
+/* INPUT NUMBER ------------------------ */
+.vm-custom-input-number {
+    width: 194px;
+    margin-right: 17px;
+}
+.vm-custom-input-number > input {
+    width: 100%;
+    height: var(--vm-input-number-height);
+    border-radius: 9px;
+    border: 1px solid #c5c5c5;
+    font-family: "Poppins", serif;
+    padding: 0px 10px;
+    outline: none;
+}
+.vm-custom-input-number > input::-webkit-inner-spin-button,
+.vm-custom-input-number > input::-webkit-outer-spin-button {
+    appearance: none;
+}
+.vm-custom-input-number > .buttons {
+    position: absolute;
+    right: -19px;
+    bottom: 0px;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.vm-custom-input-number > .buttons > button {
+    background-color: white;
+    border: 1px solid #7878f3;
+    border-radius: 100%;
+    width: 18px;
+    height: 18px;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+.vm-custom-input-number > .buttons > button > svg > path {
+    color: #7878f3;
+    stroke-width: 2.7px;
+}
+.vm-custom-input-number > .buttons > button > svg {
+    width: 17px;
+    height: 17px;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+/* VALIDATOR ERROR ---------------------------------- */
+
+.field-invalid-vm {
+    border: 1px solid red !important
+}
+
+.error-validator-vm {
+    display: block;
+    color: red;
+    font-family: "Poppins", serif;
+    font-size: 11px;
+    margin-top: 4px;
+    margin-bottom: 12px;
+}

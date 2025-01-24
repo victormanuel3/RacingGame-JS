@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<title>Document</title>
+		<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.7.1/css/all.css">
+		<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.7.1/css/sharp-thin.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,-25&icon_names=sports_motorsports" />
+		<link rel="stylesheet" href="Index.css">
+		<script src="Index.js" type="module" defer></script>
+	</head>
+	<body>
+		<h1 id="title">
+			<span>HOT<span>VM</span></span>
+			<span>WHEELS<span>VELOCIDAD A TOPE</span></span>
+		</h1>
+		<nav>
+			<h2>
+				<span>Configurar</span>
+				<span>partida</span>
+			</h2>
+			<ul>
+				<li><i class="fa-regular fa-screwdriver-wrench wrench"></i><span>Crear vehículo</span></li>
+				<li><i class="helmet-icon"></i><span>Registrar participante</span></li>
+				<li><i class="circuit"></i>Crear circuito</li>
+			</ul>
+			<div id="contain-button-start">
+				<button id="START">START</button>
+			</div>
+		</nav>
+		<div id="create-vehicle">
+			<!-- CREATE VEHÍCLE -->
+			 <div class="form-fields">
+				 <div>
+					 <span>* Solo pueden verse estadísticas de modelos previamente creados</span>
+				 </div>
+				 <div>
+					 <div id="vehicles-datalist"></div>
+					 <div id="color-datalist"></div>
+					 <div id="traction"></div>
+					 <div id="speed-min"></div>
+					 <div id="speed-max"></div>
+					 <div id="type-vehicle-select"></div>
+				 </div>
+			 </div>
+		</div>
+		<div id="create-participant">
+			<!-- CREATE PILOT -->
+			<div class="form-fields">
+				<div>
+					<span>* Solo pueden verse estadísticas de participantes previamente creados</span>
+				</div>
+				<div>
+					<div id="name-participant"></div>
+					<div id="available-vehicles"></div>
+					<div id="equipment"></div>
+				</div>
+			</div>	
+		</div>
+		<div id="create-circuit">
+			<h2>CREAR CIRCUITO</h1>
+			<div></div>
+			<div></div>
+			<button>Crear circuito</button>
+		</div>
+		<div class="container-car">
+			<div id="wrapper-f1-car"></div>
+			<div class="shadow"></div>
+		</div>
+		<div id="form-buttons">
+			<button id="validate-vehicle">Crear</button>
+			<button id="load-statistics">Estadísticas</button>
+		</div>
+	</body>
+</html>
+<!-- <select id="car-color">
+	<button>Create participant</button>
+</select>
+	
