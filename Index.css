@@ -79,7 +79,7 @@ nav > h2 {
     font-family: "Bebas Neue", serif;
     color: white;
     font-style: italic;
-    font-size: 45px;
+    font-size: 52px;
     margin-bottom: 38px;
     display: flex;
     flex-direction: column;
@@ -106,22 +106,24 @@ nav ul > li {
     gap: 14px;
     padding: 14px 16px;
     padding-right: 0px;
+    cursor: pointer;
+}
+nav ul > li > * {
+    transition: all 0.3s ease;
 }
 nav ul > li:first-child {
     border-top: 1px solid #d1d1d1;
-    color: #FFE600;
 }
 nav ul > li > i.wrench {
     font-weight: 300;
 }
-nav ul > li > i.helmet-icon {
+/* nav ul > li > i.helmet-icon {
     width: 30px;
     height: 30px;
     background-image: url('data:image/svg+xml;utf8,<svg width="82" height="80" viewBox="0 0 82 80" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.9999 79.9143C16.0702 79.9065 17.1366 79.7542 18.1679 79.4573L66.4179 65.6643C70.1015 64.5979 73.0195 61.7737 74.207 58.1252L81.125 33.4572C81.2305 33.0314 81.2305 32.59 81.125 32.1642C79.8438 23.254 75.4023 15.1052 68.609 9.1992C61.8157 3.2932 53.125 0.0273 44.125 0H40.625C30.6289 0.019531 20.988 3.7148 13.543 10.387C6.0977 17.055 1.367 26.231 0.25 36.164C0.08203 37.6328 0 39.1054 0 40.582V56.625C0 63.0625 1.9141 69.355 5.5 74.707C7.5898 77.9297 11.1601 79.887 14.9999 79.9143ZM6.2499 56.6253V40.6253V38.5823L25.6249 31.6253L29.1249 49.1683L6.4999 60.3323C6.32802 59.1018 6.24599 57.8635 6.2499 56.6253ZM40.6249 6.25033H44.2069C51.5975 6.26986 58.7339 8.91053 64.3589 13.7034C69.98 18.4925 73.7222 25.1254 74.9179 32.4144L72.2109 42.2074L64.2539 46.3754H64.25C63.1562 47.102 62.6328 48.434 62.9414 49.7074C63.2461 50.9847 64.3203 51.934 65.625 52.0824C66.1055 52.0981 66.5781 51.9809 67 51.7504L69.918 50.3324L68.211 56.2894H68.2071C67.6915 57.9378 66.3712 59.2074 64.7071 59.6644L16.4571 73.2894C14.2696 73.9261 11.9259 73.0628 10.668 71.1644C9.68361 69.6292 8.85939 67.9964 8.20709 66.2894L32.8321 53.7894C32.9922 53.7464 33.1368 53.6605 33.2501 53.5394C39.754 48.9027 44.4021 42.1134 46.3751 34.3754C46.6055 33.5199 46.7188 32.6371 46.7071 31.7504C46.6954 27.8051 44.4766 24.1996 40.9571 22.4145C38.2149 21.1254 35.0469 21.1098 32.293 22.3754L7.54299 31.6254C9.51569 24.352 13.8203 17.9344 19.797 13.3484C25.7737 8.76244 33.0939 6.26993 40.6249 6.25033ZM31.5429 29.2893L34.5429 28.1643C35.6757 27.6253 36.9921 27.6253 38.1249 28.1643C39.5546 28.8674 40.4608 30.3205 40.4569 31.9143C40.5077 32.2464 40.5077 32.5823 40.4569 32.9143C39.3788 37.0588 37.3553 40.8948 34.5428 44.1253L31.5429 29.2893Z" fill="white"/></svg>');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-  
 }
 nav ul > li > i.circuit {
     width: 34px;
@@ -130,8 +132,7 @@ nav ul > li > i.circuit {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-  
-}
+} */
 .helmet-icon {
     display: inline-block;
     width: 61px;
@@ -140,6 +141,10 @@ nav ul > li > i.circuit {
     background-size: contain;
     background-repeat: no-repeat; /* No repetir el fondo */
     background-position: center; /* Centrar el fondo */
+}
+.button-selected {
+    color: #FFE600;
+    transform: scale(1.03);
 }
 .container-form {
     display: flex;
@@ -187,15 +192,24 @@ nav ul > li > i.circuit {
 }
 
 /* FORMULARYS ---------------- */
-
+.formulary {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    transition: all 0.5s ease;
+}
+.formulary.visible {
+    opacity: 1;
+    visibility: visible;
+}
 /* vehicle */
 #create-vehicle {
     position: absolute;
     z-index: 100;
-    top: 301px;
+    top: 309px;
     left: 459px;
 }
-#create-vehicle > div:first-of-type, #create-participant > div:first-of-type {
+#create-vehicle > div:first-of-type, #create-participant > div:first-of-type, #create-circuit > div:first-of-type {
     background-color: #00000052;
     padding: 13px;
     padding-top: 5px;
@@ -232,7 +246,6 @@ div.form-fields > div:last-child {
     color: black;
     font-style: italic;
     padding-top: 2px;
-    transition: transform 0.3s ease;
 }
 #form-buttons button:hover {
     transform: scale(1.05);
@@ -248,8 +261,24 @@ div.form-fields > div:last-child {
 
 #create-participant {
     position: absolute;
-    top: 306px;
+    top: 317px;
     left: 645px;
+    z-index: 200;
+    transition: all 0.3s ease;
+}
+
+
+/* circuit */
+
+#create-circuit {
+    position: absolute;
+    z-index: 100;
+    top: 322px;
+    left: 651px;
+}
+
+#create-circuit > div:first-of-type {
+    padding-top: 13px !important;
 }
 
 /* ----------- */
@@ -278,6 +307,10 @@ div.form-fields > div:last-child {
     justify-content: center;
     gap: 13px;
     cursor: pointer;
+    transition: all 0.5s ease;
+}
+#START:hover {
+    transform: scale(1.2);
 }
 .vm-custom-input-number > .buttons > button {
     background-color: #ffffff00;
@@ -290,4 +323,7 @@ div.form-fields > div:last-child {
 .vm-custom-dropdown > .dropdown-input:focus {
     border: 2px solid var(--car-color-soft);
     box-shadow: 1px 1px 5px var(--car-color-soft);
+}
+#create-vehicle .vm-custom-input-number {
+    width: 69px;
 }

@@ -106,9 +106,8 @@ export class customInputs {
             wrapper_input.style.setProperty('--vm-input-number-height', options.height)
 
         wrapper_input.innerHTML = `
-        <input type="number" min="${options.min ?? 0}" 
-                            ${options.max ? `max="${options.max}"` : ''} 
-                            value="${options.min ?? 0}">
+        <input type="number" min="${options.min ?? 0}" ${options.max ? `max="${options.max}"` : ''} 
+            ${options.placeholder ? `placeholder="${options.placeholder}"` : `value="${options.min ?? 0}"`}>
         <div class="buttons">
             <button class="sumar">
                 <svg viewBox="0 0 24 24"><path d="M4 16 L12 8 L20 16" stroke="currentColor" stroke-width="2" fill="none"/></svg>
