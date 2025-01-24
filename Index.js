@@ -96,7 +96,7 @@ const color_vehicle = inputs.initDropdown('color-datalist', {
             {label: 'Rojo Carmesí Oscuro', type: '<i class="fa-solid fa-square" style="color: #A6051A;"></i>'}
         ],
 })
-const traction = inputs.initSelect('traction', {
+const traction = inputs.initSelect('vehicle-traction', {
     width: '198px',
     items: [
         'Dura',
