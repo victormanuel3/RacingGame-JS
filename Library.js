@@ -31,6 +31,8 @@ export class customInputs {
         if (!wrapper_dropdown) return console.error("El elemento wrapper_dropdown no existe.")
         wrapper_dropdown.classList.add("vm-custom-dropdown")
         
+        // console.info(wrapper_dropdown)
+
         if (options.width)
             wrapper_dropdown.style.setProperty('--vm-dropdown-width', options.width)
 
@@ -57,41 +59,54 @@ export class customInputs {
     }
     
     initSelect(wrapper, options = {}) {
-        const wrapper_select = document.getElementById(`${wrapper}`)
+        const wrapper_select = document.getElementById(wrapper)
         if (!wrapper_select) console.error("El elemento wrapper_select no existe.")
         wrapper_select.classList.add("vm-custom-select")
         
+        console.info(wrapper_select)
+
         if (options.width)
             wrapper_select.style.setProperty('--vm-select-width', options.width)
 
         if (options.height)
             wrapper_select.style.setProperty('--vm-select-height', options.height)
 
-        wrapper_select.innerHTML = `
-        <button id="btn-select">
-            <span id="prueba" data-placeholder="${options.placeholder || 'Selecciona una opción...'}"></span>
+        wrapper_select.innerHTML = '';
+
+        const button = document.createElement('button');
+        button.id = `btn-select-${wrapper}`;
+        button.innerHTML = `
+            <span id="prueba-${wrapper}" data-placeholder="${options.placeholder || 'Selecciona una opción...'}"></span>
             <span><i class="arrow-select fa-regular fa-angle-down"></i></span>
-        </button>
-        <div class="select-list"></div>
-        `
+        `;
+    
+        const list = document.createElement('div');
+        list.classList.add('select-list');
+    
+        wrapper_select.appendChild(button);
+        wrapper_select.appendChild(list);
 
         if (options.colors)
             wrapper_select.style.setProperty('--vm-select-color', options.colors)
-
-        let button = document.getElementById("btn-select")
-        let arrow = document.querySelector("#btn-select .arrow-select")
-        let list = document.querySelector(".select-list")
 
         const selectInstance = {
             wrapper_select,
             button,
             list,
-            arrow,
+            arrow: button.querySelector('.arrow-select'),
             isOpen: false,
             items: options.items || []
         }
         this.fillSelect(selectInstance)
         this.setupSelectEvents(selectInstance)
+
+        return selectInstance;
+    }
+
+    initMultipleSelects(config) {
+        Object.entries(config).forEach(([wrapperId, options]) => {
+            this.initSelect(wrapperId, options);
+        });
     }
 
     initInputNumber(wrapper, options) {
@@ -160,6 +175,8 @@ export class customInputs {
     }
 
     fillSelect(select) {
+        select.list.innerHTML = '';
+
         select.items.forEach((item) => {
             const div = document.createElement("div");
             if (typeof item == 'object' && item != null) {

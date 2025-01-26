@@ -1,8 +1,8 @@
 export class Circuit {
-    constructor(nombre, tiempo, longitug) {
+    constructor(nombre, tiempo, longitud) {
         this.nombre = nombre;
         this.tiempo = tiempo;
-        this.longitug = longitug;
+        this.longitud = longitud;
         this.participants = [];
     }
 }

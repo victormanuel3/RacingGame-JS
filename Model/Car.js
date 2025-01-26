@@ -1,11 +1,13 @@
 import { Vehicle } from './Vehicle.js'
 
 export class Car extends Vehicle {
-    constructor(modelo, traccion, velocidad_min, velocidad_max) {
-        super(modelo, traccion, velocidad_min, velocidad_max);
+    constructor(modelo, color, traccion, velocidad_min, velocidad_max) {
+        super(modelo, color, traccion, velocidad_min, velocidad_max);
     }
 
     avance(tiempo) {
+        let traccion = this.traccion.toLowerCase().trim();
+
         let aumentar_velocidad = {
             lluvioso: { blanda: 4, media: 2, dura: 0 },
             humedo: { blanda: 2, media: 2, dura: 2 },
@@ -18,7 +20,7 @@ export class Car extends Vehicle {
             Math.floor(
                 Math.random() * (velocidad_max - velocidad_min + 1) +
                     velocidad_min
-            ) + aumentar_velocidad[tiempo][this.traccion]
+            ) + aumentar_velocidad[tiempo][traccion]
         );
     }
 }
