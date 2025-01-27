@@ -503,6 +503,7 @@ document.getElementById("assign-participant").addEventListener("click", () => {
                 showErrorAlert("Este participante ya ha sido añadido a este circuito.")
             } else {
                 obj_circuit.participants.push(obj_participant)
+                clearFields(["#dropdown-circuits", "#dropdown-participants"])
                 showSuccessAlert("El participante ha sido agregado al circuito.")
             }
         }
@@ -640,6 +641,8 @@ function showTrackVechiles(circuit) {
         } else {
             console.warn(`El participante ${p.nombre} tiene un tipo de vehículo no reconocido.`);
         }
+        car.setCarColor('#001AFF')
+        
     });
 }
 
@@ -690,8 +693,8 @@ function startRace() {
     console.info(participants);
     console.info("--------------------------------------------");
 
-    let scaleFactor = window.innerWidth / loaded_circuit.longitud;
-    let finalPositions = participants.map(() => 0);
+    let scaleFactor = window.innerWidth / loaded_circuit.longitud; // Escala para el movimiento en pantalla
+    let finalPositions = participants.map(() => 0); // Array para registrar posiciones finales
     let fallTimers = {}; // Objeto para rastrear las caídas de las motos
 
     let interval = setInterval(() => {
@@ -702,14 +705,12 @@ function startRace() {
             console.info("---------------------");
 
             let carWrapper = document.getElementById(`car-wrapper-${index}`);
-            let carDiv = document.getElementById(`car-${index}`);
-
-            // Use transform for smoother positioning
             let currentTransform = carWrapper.style.transform || "translateX(0px)";
-            let currentLeft = parseFloat(currentTransform.replace("translateX(", ""));
+            let currentLeft = parseFloat(currentTransform.replace("translateX(", "").replace("px)", ""));
 
-            let advanceInPixels = 0; // Avance en píxeles predeterminado
+            let advanceInPixels = 0; // Avance en píxeles por iteración
 
+            // Verificar el tipo de vehículo y calcular el avance
             if (participant.vehiculo instanceof Motocycle) {
                 // Verificar si la moto se cae
                 if (!fallTimers[index]) {
@@ -717,7 +718,7 @@ function startRace() {
                         console.log(`${participant.nombre} (moto) se ha caído! No puede avanzar por 5 segundos.`);
                         participant.vehiculo.caida = true;
 
-                        // Iniciar un temporizador de 5 segundos para la caída
+                        // Temporizador de 5 segundos para la caída
                         fallTimers[index] = setTimeout(() => {
                             participant.vehiculo.caida = false;
                             fallTimers[index] = null; // Limpiar el temporizador
@@ -726,45 +727,60 @@ function startRace() {
                     }
                 }
 
-                // Si la moto está caída, no avanza
+                // Si la moto no está caída, calcula el avance
                 if (!participant.vehiculo.caida) {
                     let advance = participant.vehiculo.avance();
-                    advanceInPixels = advance * scaleFactor;
+                    advanceInPixels = advance * scaleFactor; // Escalar el avance
                 }
             } else if (participant.vehiculo instanceof Car) {
                 // Avance normal para los coches
                 let advance = participant.vehiculo.avance(loaded_circuit.tiempo);
-                advanceInPixels = advance * scaleFactor;
+                advanceInPixels = advance * scaleFactor; // Escalar el avance
             }
 
             let newLeft = currentLeft + advanceInPixels;
 
-            // Use transform instead of left
+            // Usar transform en lugar de modificar directamente el estilo "left"
             carWrapper.style.transform = `translateX(${newLeft}px)`;
 
+            // Verificar si el participante cruza la meta
             if (newLeft >= window.innerWidth && finalPositions[index] === 0) {
                 finalPositions[index] = Math.max(...finalPositions) + 1;
-                console.log(`${participant.nombre} arrived in position ${finalPositions[index]}`);
+                console.log(`${participant.nombre} llegó en la posición ${finalPositions[index]}`);
             }
         });
 
+        // Si todos los participantes han cruzado la meta, finalizar la carrera
         if (finalPositions.filter(pos => pos > 0).length === participants.length) {
             clearInterval(interval);
 
+            // Ordenar participantes por posición
             let sortedParticipants = participants
                 .map((p, i) => ({ participant: p, position: finalPositions[i] }))
                 .sort((a, b) => a.position - b.position);
 
+            // Actualizar las posiciones en el podio
             sortedParticipants.forEach(({ participant, position }) => {
-                if (position === 1) participant.primero += 1;
-                else if (position === 2) participant.segundo += 1;
-                else if (position === 3) participant.tercero += 1;
-                else participant.fuera_de_podio += 1;
+                if (position === 1) {
+                    participant.primero += 1;
+                    console.log(`${participant.nombre} ahora tiene ${participant.primero} primeros lugares.`);
+                } else if (position === 2) {
+                    participant.segundo += 1;
+                    console.log(`${participant.nombre} ahora tiene ${participant.segundo} segundos lugares.`);
+                } else if (position === 3) {
+                    participant.tercero += 1;
+                    console.log(`${participant.nombre} ahora tiene ${participant.tercero} terceros lugares.`);
+                } else {
+                    participant.fuera_de_podio += 1;
+                    console.log(`${participant.nombre} quedó fuera del podio.`);
+                }
             });
 
+            // Mostrar el ganador
             let winner = sortedParticipants[0].participant;
             window.alert(`¡El ganador de la carrera es ${winner.nombre}!`);
 
+            // Limpiar la interfaz
             let containerVehicles = document.getElementById("container-vehicles-circuit");
             if (containerVehicles) {
                 containerVehicles.remove();
